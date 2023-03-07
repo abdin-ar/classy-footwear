@@ -1,0 +1,35 @@
+// This is useState that stores the value in local storage or session storage
+
+import { useCallback, useState, useEffect } from "react";
+
+export default function useStorage(key, defaultValue, storage = "local") {
+  let store = window.localStorage;
+  if (storage && storage === "session") {
+    store = window.sessionStorage;
+  }
+  return useStorageMain(key, defaultValue, store);
+}
+
+function useStorageMain(key, defaultValue, storageObject) {
+  const [value, setValue] = useState(() => {
+    const jsonValue = storageObject.getItem(key);
+    if (jsonValue !== null) return JSON.parse(jsonValue);
+
+    if (typeof defaultValue === "function") {
+      return defaultValue();
+    } else {
+      return defaultValue;
+    }
+  });
+
+  useEffect(() => {
+    if (value === undefined) return storageObject.removeItem(key);
+    storageObject.setItem(key, JSON.stringify(value));
+  }, [key, value, storageObject]);
+
+  const remove = useCallback(() => {
+    setValue(undefined);
+  }, []);
+
+  return [value, setValue, remove];
+}
