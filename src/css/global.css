@@ -1079,7 +1079,7 @@ ul:not(.ul) {
 .infinite-scrolling-logos-division img {
   object-fit: contain;
   max-height: 100%;
-  min-width: 80%;
+  max-width: 80%;
 }
 
 /* banner */
