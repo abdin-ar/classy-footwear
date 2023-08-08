@@ -1,4 +1,4 @@
-const ProductImg = ({ src, alt, placeholder }) => {
+const ProductImg = ({ src, alt }) => {
   return (
     <div className="product-img">
       <img src={src} alt={alt} />

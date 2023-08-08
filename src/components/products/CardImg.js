@@ -4,27 +4,8 @@ const CardImg = ({ src, alt, isNew, isTrending, discount }) => {
   const image = useRef();
   const container = useRef();
 
-  let currentScrollPosition;
-
-  function stopScrolling() {
-    currentScrollPosition = [window.scrollX, window.scrollY];
-    window.addEventListener("scroll", scrollEventHandler);
-  }
-
-  function resumeScrolling() {
-    window.removeEventListener("scroll", scrollEventHandler);
-  }
-
-  function scrollEventHandler() {
-    window.scrollTo(...currentScrollPosition);
-  }
-
   const move = (e) => {
     let eventClientX, eventClientY;
-
-    if (e.type === "touchstart") {
-      stopScrolling();
-    }
 
     if (e.type === "touchmove" || e.type === "touchstart") {
       eventClientX = e.targetTouches[0].clientX;
@@ -56,10 +37,6 @@ const CardImg = ({ src, alt, isNew, isTrending, discount }) => {
   };
 
   const leave = (e) => {
-    if (e.type === "touchcancel" || e.type === "touchend") {
-      resumeScrolling();
-    }
-
     image.current.style.transformOrigin = "center center";
     image.current.style.transform = "scale(1)";
   };

@@ -7,46 +7,40 @@ import sortData from "../../utils/sortData";
 import startAtData from "../../utils/startAtData";
 import limitData from "../../utils/limitData";
 
-const ProductsList = (props) => {
-  const myProps = { ...props };
-  for (const prop in myProps) {
-    if (
-      prop === "query" ||
-      prop === "limit" ||
-      prop === "startAt" ||
-      prop === "sort" ||
-      prop === "noOfResults" ||
-      prop === "className" ||
-      prop === "cartList" ||
-      prop === "currentItemInCart" ||
-      prop === "data" ||
-      prop === "children"
-    ) {
-      delete myProps[prop];
-    }
-  }
-
+const ProductsList = ({
+  query,
+  limit,
+  startAt,
+  sort,
+  noOfResults,
+  className,
+  cartList,
+  currentItemInCart,
+  data,
+  children,
+  ...props
+}) => {
   const { state } = useGlobalContext();
 
   function applyLimitStartSort(inputData) {
-    if (props.sort) {
-      sortData(inputData, props.sort[0], props.sort[1], props.sort[2]);
+    if (sort) {
+      sortData(inputData, sort[0], sort[1], sort[2]);
     }
-    if (props.startAt) {
-      startAtData(inputData, props.startAt);
+    if (startAt) {
+      startAtData(inputData, startAt);
     }
-    if (props.limit) {
-      limitData(inputData, props.limit);
+    if (limit) {
+      limitData(inputData, limit);
     }
     return inputData;
   }
 
-  let data = props.cartList ? state.cart : state.data;
-  if (props.data) {
-    data = props.data;
+  let currentData = cartList ? state.cart : state.data;
+  if (data) {
+    currentData = data;
   }
 
-  if (!props.cartList && !data) {
+  if (!cartList && !currentData) {
     return (
       <section className="mt-4">
         <p className="h4 mb-4">Failed to load products data!</p>
@@ -54,7 +48,7 @@ const ProductsList = (props) => {
     );
   }
 
-  if (props.cartList && data.length === 0) {
+  if (cartList && currentData.length === 0) {
     return (
       <section className="mt-4">
         <p className="h4 mb-4">Cart</p>
@@ -71,8 +65,8 @@ const ProductsList = (props) => {
     );
   }
 
-  if (props.query) {
-    const filteredData = filterData(props.query, data);
+  if (query) {
+    const filteredData = filterData(query, currentData);
     const filtersText = `Your query returned ${filteredData.length} result${
       filteredData.length > 1 ? "s" : ""
     }`;
@@ -87,8 +81,8 @@ const ProductsList = (props) => {
 
     return (
       <section className="mt-4">
-        {props.noOfResults ? <p className="h4 mb-4">{filtersText}</p> : null}
-        <div className={`products-list ${props.className}`} {...myProps}>
+        {noOfResults ? <p className="h4 mb-4">{filtersText}</p> : null}
+        <div className={`products-list ${className}`} {...props}>
           {applyLimitStartSort(filteredData).map((item) => {
             return <Card key={item.id} {...item} />;
           })}
@@ -97,23 +91,23 @@ const ProductsList = (props) => {
     );
   }
 
-  if (props.cartList) {
+  if (cartList) {
     return (
       <section className="mt-4">
         <p className="h4 mb-4">Cart</p>
-        <div className={`products-list ${props.className}`} {...myProps}>
-          {applyLimitStartSort(data).map((item) => {
+        <div className={`products-list ${className}`} {...props}>
+          {applyLimitStartSort(currentData).map((item) => {
             return <CartCard key={item.fid} {...item} />;
           })}
         </div>
       </section>
     );
   }
-  if (props.currentItemInCart) {
+  if (currentItemInCart) {
     return (
       <section className="mt-4">
-        <div className={`products-list ${props.className}`} {...myProps}>
-          {applyLimitStartSort(data).map((item) => {
+        <div className={`products-list ${className}`} {...props}>
+          {applyLimitStartSort(currentData).map((item) => {
             return <CartCard key={item.fid} noDetailsBtn={true} {...item} />;
           })}
         </div>
@@ -122,9 +116,9 @@ const ProductsList = (props) => {
   }
   return (
     <section className="mt-4">
-      {props.noOfResults ? <p className="h4 mb-4">All Products</p> : null}
-      <div className={`products-list ${props.className}`} {...myProps}>
-        {applyLimitStartSort(data).map((item) => {
+      {noOfResults ? <p className="h4 mb-4">All Products</p> : null}
+      <div className={`products-list ${className}`} {...props}>
+        {applyLimitStartSort(currentData).map((item) => {
           return <Card key={item.id} {...item} />;
         })}
       </div>

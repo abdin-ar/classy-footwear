@@ -1,21 +1,15 @@
 import { useRef } from "react";
 
-const ColorSizeButton = (props) => {
-  const newProps = { ...props };
-  for (const prop in newProps) {
-    if (
-      prop === "action" ||
-      prop === "tabIndex" ||
-      prop === "text" ||
-      prop === "onClick" ||
-      prop === "onKeyDown" ||
-      prop === "ref" ||
-      prop === "children"
-    ) {
-      delete newProps[prop];
-    }
-  }
-
+const ColorSizeButton = ({
+  action,
+  tabIndex,
+  text,
+  onClick,
+  onKeyDown,
+  ref,
+  children,
+  ...props
+}) => {
   const btn = useRef();
 
   function runAction(e, action) {
@@ -31,14 +25,14 @@ const ColorSizeButton = (props) => {
     <div
       ref={btn}
       tabIndex={0}
-      onClick={props.action}
+      onClick={action}
       onKeyDown={(e) => {
         e.stopPropagation();
-        runAction(e, props.action);
+        runAction(e, action);
       }}
-      {...newProps}
+      {...props}
     >
-      {props.text}
+      {text}
     </div>
   );
 };

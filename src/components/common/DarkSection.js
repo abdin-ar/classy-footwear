@@ -1,47 +1,37 @@
-const DarkSection = (props) => {
-  const myProps = { ...props };
-  for (const prop in myProps) {
-    if (
-      prop === "children" ||
-      prop === "className" ||
-      prop === "classTop" ||
-      prop === "classBottom" ||
-      prop === "transitionHeight"
-    ) {
-      delete myProps[prop];
-    }
-  }
-
+const DarkSection = ({
+  children,
+  className,
+  classTop,
+  classBottom,
+  transitionHeight,
+  ...props
+}) => {
   return (
     <>
       <div
-        className={`start-dark-section ${props.classTop}`}
-        style={
-          props.transitionHeight ? { height: props.transitionHeight } : null
-        }
+        className={`start-dark-section ${classTop}`}
+        style={transitionHeight ? { height: transitionHeight } : null}
       ></div>
       <article
-        className={`dark-section ${props.className}`}
+        className={`dark-section ${className}`}
         style={
-          props.transitionHeight
+          transitionHeight
             ? {
-                paddingTop: props.transitionHeight,
-                paddingBottom: props.transitionHeight,
-                marginTop: `-${props.transitionHeight}`,
-                marginBottom: `-${props.transitionHeight}`,
-                clipPath: `polygon(0 ${props.transitionHeight}, 100% 0, 100% 100%, 0 calc(100% - ${props.transitionHeight}))`,
+                paddingTop: transitionHeight,
+                paddingBottom: transitionHeight,
+                marginTop: `-${transitionHeight}`,
+                marginBottom: `-${transitionHeight}`,
+                clipPath: `polygon(0 ${transitionHeight}, 100% 0, 100% 100%, 0 calc(100% - ${transitionHeight}))`,
               }
             : null
         }
-        {...myProps}
+        {...props}
       >
-        {props.children}
+        {children}
       </article>
       <div
-        className={`end-dark-section ${props.classBottom}`}
-        style={
-          props.transitionHeight ? { height: props.transitionHeight } : null
-        }
+        className={`end-dark-section ${classBottom}`}
+        style={transitionHeight ? { height: transitionHeight } : null}
       ></div>
     </>
   );

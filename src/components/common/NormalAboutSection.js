@@ -1,31 +1,25 @@
-const NormalAboutSection = (props) => {
-  const myProps = { ...props };
-  for (const prop in myProps) {
-    if (
-      prop === "children" ||
-      prop === "className" ||
-      prop === "title" ||
-      prop === "img" ||
-      prop === "watermark"
-    ) {
-      delete myProps[prop];
-    }
-  }
-
+const NormalAboutSection = ({
+  children,
+  className,
+  title,
+  img,
+  watermark,
+  ...props
+}) => {
   return (
     <article
-      className={`${props.watermark ? "watermark" : ""} about-normal-section ${
-        props.className
-      }`}
-      data-content={props.title}
-      {...myProps}
+      className={`${
+        watermark ? "watermark" : ""
+      } about-normal-section ${className}`}
+      data-content={title}
+      {...props}
     >
       <div>
-        <h3 className="h4 mb-2">{props.title}</h3>
-        {props.children}
+        <h3 className="h4 mb-2">{title}</h3>
+        {children}
       </div>
       <div className="product-img my-4">
-        <img src={`/images/about/${props.img}`} alt={props.title} />
+        <img src={`/images/about/${img}`} alt={title} />
       </div>
     </article>
   );

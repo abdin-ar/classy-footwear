@@ -27,7 +27,7 @@ const Banner = () => {
   }, [bannerIndex]);
 
   return (
-    <article className="banner no-dark-mode">
+    <article className="banner">
       <div className="banner-center">
         <BannerText index={bannerIndex} data={bannerData} />
         <BannerImg index={bannerIndex} data={bannerData} />

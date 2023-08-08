@@ -1,16 +1,9 @@
-const InfiniteScrollingLogos = (props) => {
-  const myProps = { ...props };
-  for (const prop in myProps) {
-    if (prop === "data" || prop === "children" || prop === "className") {
-      delete myProps[prop];
-    }
-  }
-
+const InfiniteScrollingLogos = ({ data, children, className, ...props }) => {
   return (
-    <div className={`infinite-scrolling-logos ${props.className}`} {...myProps}>
+    <div className={`infinite-scrolling-logos ${className}`} {...props}>
       <div className="infinite-scrolling-logos-center">
         <div className="infinite-scrolling-logos-division">
-          {props.data.map((item, index) => {
+          {data.map((item, index) => {
             return (
               <div key={index} className="m-0 p-0 flexed full-width">
                 <img
@@ -30,7 +23,7 @@ const InfiniteScrollingLogos = (props) => {
           })}
         </div>
         <div className="infinite-scrolling-logos-division">
-          {props.data.map((item, index) => {
+          {data.map((item, index) => {
             return (
               <div key={index} className="m-0 p-0 flexed full-width">
                 <img

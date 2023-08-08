@@ -13,10 +13,17 @@ const Contact = () => {
       <div className="mt-4 flexed between gap-2 wrap">
         <ContactCard
           icon="location-dot"
+          name="Location"
           text="25 Shoes st., New-Shoes City, NS"
         />
-        <ContactCard icon="phone" text="555-5555-5555" />
-        <ContactCard icon="envelope" text="support@classyfootwear.com" />
+        <ContactCard icon="phone" name="Phone Number" text="555-5555-5555" />
+        <ContactCard
+          icon="envelope"
+          name="Email"
+          text="support@classyfootwear.com"
+          clickToCopy
+          title="Copy to clipboard"
+        />
       </div>
     </NormalSection>
   );

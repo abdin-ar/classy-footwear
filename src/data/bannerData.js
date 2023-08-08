@@ -2,6 +2,7 @@ const bannerData = [
   {
     id: 1,
     img: "logo-large.gif",
+    imgDark: "logo-large-dark.gif",
     heading: "Premium Quality",
     subheading: "Footwear for Men",
     text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate commodi magni possimus excepturi blanditiis quasi tenetur numquam repudiandae.",

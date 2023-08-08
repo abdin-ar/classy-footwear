@@ -1,15 +1,13 @@
 import useDarkMode from "../../hooks/useDarkMode";
 
-const DarkModeToggleSaved = (props) => {
+const DarkModeToggleSaved = ({ title, onClick, ...props }) => {
   const [darkMode, toggleDarkMode] = useDarkMode();
-  const myProps = { ...props };
-  myProps.className = `${props.className}`;
 
   return (
     <button
       title={darkMode ? "Light Mode" : "Dark Mode"}
       onClick={toggleDarkMode}
-      {...myProps}
+      {...props}
     >
       {darkMode ? (
         <i className="fas fa-sun"></i>

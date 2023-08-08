@@ -1,21 +1,13 @@
-const FormInput = (props) => {
-  const { label, name, type, inputClassName, labelClassName } = props;
-
-  const newProps = { ...props };
-  for (const prop in newProps) {
-    if (
-      prop === "label" ||
-      prop === "name" ||
-      prop === "type" ||
-      prop === "className" ||
-      prop === "id" ||
-      prop === "inputClassName" ||
-      prop === "labelClassName"
-    ) {
-      delete newProps[prop];
-    }
-  }
-
+const FormInput = ({
+  label,
+  name,
+  type,
+  className,
+  id,
+  inputClassName,
+  labelClassName,
+  ...props
+}) => {
   if (type === "textarea") {
     return (
       <div className="form-row">
@@ -27,7 +19,7 @@ const FormInput = (props) => {
           type="text"
           name={name}
           id={name}
-          {...newProps}
+          {...props}
         />
       </div>
     );
@@ -36,11 +28,11 @@ const FormInput = (props) => {
     return (
       <div className="form-row">
         <div
-          className={`form-alert ${props.className}`}
+          className={`form-alert ${className}`}
           id="contactUsFormAlert"
-          {...newProps}
+          {...props}
         >
-          {props.name}
+          {name}
         </div>
       </div>
     );
@@ -49,11 +41,11 @@ const FormInput = (props) => {
     return (
       <div className="form-row">
         <button
-          className={`btn full-width ${props.className}`}
+          className={`btn full-width ${className}`}
           type="submit"
-          {...newProps}
+          {...props}
         >
-          {props.name}
+          {name}
         </button>
       </div>
     );
@@ -68,7 +60,7 @@ const FormInput = (props) => {
         type={type}
         name={name}
         id={name}
-        {...newProps}
+        {...props}
       />
     </div>
   );

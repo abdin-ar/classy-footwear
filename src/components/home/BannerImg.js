@@ -2,7 +2,7 @@ const BannerImg = ({ index, data }) => {
   return (
     <section className="banner-carousel-section">
       {data.map((item, itemIndex) => {
-        const { id, img, blob, heading, subheading } = item;
+        const { id, img, imgDark, blob, heading, subheading } = item;
         let position = "nextSlide";
         if (itemIndex === index) {
           position = "activeSlide";
@@ -22,7 +22,12 @@ const BannerImg = ({ index, data }) => {
             key={id}
           >
             <img
-              src={`/images/${img}`}
+              src={`/images/${
+                document.documentElement.classList.contains("dark-mode") &&
+                imgDark
+                  ? imgDark
+                  : img
+              }`}
               alt={`${heading} ${subheading}`}
               style={
                 blob

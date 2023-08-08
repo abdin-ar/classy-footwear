@@ -1,25 +1,16 @@
 import FormInputValidation from "./FormInputValidation";
 
-const FormInput = (props) => {
-  const { label, name, type, inputClassName, labelClassName, validState } =
-    props;
-
-  const newProps = { ...props };
-  for (const prop in newProps) {
-    if (
-      prop === "validState" ||
-      prop === "label" ||
-      prop === "name" ||
-      prop === "type" ||
-      prop === "className" ||
-      prop === "id" ||
-      prop === "inputClassName" ||
-      prop === "labelClassName"
-    ) {
-      delete newProps[prop];
-    }
-  }
-
+const FormInput = ({
+  validState,
+  label,
+  name,
+  type,
+  className,
+  id,
+  inputClassName,
+  labelClassName,
+  ...props
+}) => {
   if (type === "textarea") {
     return (
       <div
@@ -38,7 +29,7 @@ const FormInput = (props) => {
           type="text"
           name={name}
           id={name}
-          {...newProps}
+          {...props}
         />
         <FormInputValidation validState={validState} />
       </div>
@@ -48,11 +39,11 @@ const FormInput = (props) => {
     return (
       <div className="form-row">
         <div
-          className={`form-alert ${props.className}`}
+          className={`form-alert ${className}`}
           id="contactUsFormAlert"
-          {...newProps}
+          {...props}
         >
-          {props.name}
+          {name}
         </div>
       </div>
     );
@@ -60,20 +51,16 @@ const FormInput = (props) => {
   if (type === "submit") {
     return (
       <div className="form-row">
-        <button
-          className={`btn ${props.className}`}
-          type="submit"
-          {...newProps}
-        >
-          {props.name}
+        <button className={`btn ${className}`} type="submit" {...props}>
+          {name}
         </button>
       </div>
     );
   }
   if (type === "submit-btn") {
     return (
-      <button className={`btn ${props.className}`} type="submit" {...newProps}>
-        {props.name}
+      <button className={`btn ${className}`} type="submit" {...props}>
+        {name}
       </button>
     );
   }
@@ -91,7 +78,7 @@ const FormInput = (props) => {
         type={type}
         name={name}
         id={name}
-        {...newProps}
+        {...props}
       />
       <FormInputValidation validState={validState} />
     </div>
